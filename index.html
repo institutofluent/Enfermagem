@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site da Empresa</title>
+    <style>
+        /* Reset básico */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #0a0a3a; /* fundo azul escuro */
+        }
+
+        /* Fundo principal responsivo */
+        .fundo {
+            width: 100%;
+            min-height: 100vh;
+            background-image: url('fundo-1.jpg');
+            background-size: contain; /* mantém a imagem inteira visível */
+            background-repeat: no-repeat;
+            background-position: center top; /* topo do fundo alinhado */
+            position: relative;
+        }
+
+        /* Capa sempre no topo */
+        .capa {
+            width: 100%;      /* ocupa toda a largura */
+            max-height: 50vh; /* opcional: limita altura da capa para não ocupar a tela toda */
+            height: auto;
+            display: block;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        /* Pequenos ajustes para celulares */
+        @media (max-width: 768px) {
+            .capa {
+                max-height: 40vh; /* reduz altura da capa em telas menores */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="fundo">
+        <img src="capa.jpg" alt="Capa da Empresa" class="capa">
+    </div>
+</body>
+</html>
