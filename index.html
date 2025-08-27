@@ -13,32 +13,22 @@
         font-family: Arial, sans-serif;
         background-color: #0a0a3a;
         scroll-behavior: smooth;
+        overflow-x: hidden; /* evita rolagem horizontal */
     }
 
-    /* Fundo principal responsivo */
-    .fundo {
-        width: 100%;
-        min-height: 100vh;
-        background-image: url('fundo-1.jpg');
-        background-size: contain; /* mantém a imagem inteira visível */
-        background-repeat: no-repeat;
-        background-position: center top;
-        position: relative;
-    }
-
-    /* Capa ocupa o topo inteiro da tela */
+    /* Capa no topo */
     .capa-container {
         width: 100%;
-        height: 100vh; /* ocupa a altura total da tela */
+        /* altura automática baseada na imagem */
         overflow: hidden;
         position: relative;
     }
 
     .capa {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* cobre totalmente o container, sem distorcer */
+        width: 100%;        /* ocupa toda a largura */
+        height: auto;       /* altura proporcional */
         display: block;
+        object-fit: contain; /* mantém proporção da imagem */
     }
 
     /* Seções adicionais */
@@ -64,7 +54,7 @@
 </head>
 <body>
 
-<!-- Fundo + capa -->
+<!-- Capa apenas no topo -->
 <div class="capa-container">
     <img src="capa.jpg" alt="Capa da Empresa" class="capa">
 </div>
