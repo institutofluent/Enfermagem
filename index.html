@@ -11,7 +11,6 @@
         width: 100%;
         min-height: 100%;
         font-family: Arial, sans-serif;
-        background-color: #0a0a3a;
         scroll-behavior: smooth;
         overflow-x: hidden; /* evita rolagem horizontal */
     }
@@ -19,23 +18,21 @@
     /* Capa no topo */
     .capa-container {
         width: 100%;
-        /* altura automática baseada na imagem */
         overflow: hidden;
         position: relative;
     }
 
     .capa {
-        width: 100%;        /* ocupa toda a largura */
-        height: auto;       /* altura proporcional */
+        width: 100%;        
+        height: auto;       
         display: block;
-        object-fit: contain; /* mantém proporção da imagem */
+        object-fit: contain; 
     }
 
     /* Seções adicionais */
     .secao {
         width: 100%;
         min-height: 100vh;
-        background-color: #0a0a3a;
         color: white;
         display: flex;
         justify-content: center;
@@ -43,6 +40,21 @@
         text-align: center;
         font-size: 2rem;
         padding: 20px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center top;
+    }
+
+    .secao1 {
+        background-image: url('fundo-1.jpg'); /* escolha seu fundo */
+    }
+
+    .secao2 {
+        background-image: url('fundo-2.jpg'); /* outro fundo */
+    }
+
+    .secao3 {
+        background-image: url('fundo-3.jpg'); /* outro fundo */
     }
 
     @media (max-width: 768px) {
@@ -59,16 +71,16 @@
     <img src="capa.jpg" alt="Capa da Empresa" class="capa">
 </div>
 
-<!-- Seções adicionais -->
-<div class="secao">
+<!-- Seções adicionais com fundos diferentes -->
+<div class="secao secao1">
     <p>Seção 1: Informações da Empresa</p>
 </div>
 
-<div class="secao">
+<div class="secao secao2">
     <p>Seção 2: Serviços</p>
 </div>
 
-<div class="secao">
+<div class="secao secao3">
     <p>Seção 3: Contato</p>
 </div>
 
