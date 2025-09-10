@@ -30,8 +30,8 @@
     }
 
     button {
-      background-color: blue;   /* fundo azul */
-      color: white;             /* texto branco */
+      background-color: blue;
+      color: white;
       border: none;
       padding: 10px;
       width: 100%;
@@ -42,11 +42,6 @@
     button:hover {
       background-color: darkblue;
     }
-
-    #resultado {
-      margin-top: 15px;
-      font-size: 14px;
-    }
   </style>
 </head>
 <body>
@@ -54,30 +49,23 @@
     <h2>Verificação</h2>
     <input type="text" id="codigo" placeholder="Digite o código">
     <button onclick="verificar()">Verificar</button>
-    <div id="resultado"></div>
   </div>
 
   <script>
-    // "Banco de dados" em JSON (pode adicionar mais alunos aqui)
+    // Códigos que apontam para páginas específicas
     const alunos = {
-      "12345": {nome: "Ana Silva", turma: "3A", idade: 15},
-      "67890": {nome: "Carlos Souza", turma: "2B", idade: 16}
+      "12345": "ana.html",
+      "67890": "carlos.html"
     };
 
     function verificar() {
       const codigo = document.getElementById("codigo").value.trim();
-      const resultado = document.getElementById("resultado");
 
       if (alunos[codigo]) {
-        let aluno = alunos[codigo];
-        resultado.innerHTML = `
-          <h3>Informações do Aluno</h3>
-          <p><b>Nome:</b> ${aluno.nome}</p>
-          <p><b>Turma:</b> ${aluno.turma}</p>
-          <p><b>Idade:</b> ${aluno.idade}</p>
-        `;
+        // Redireciona o navegador para a página do aluno
+        window.location.href = alunos[codigo];
       } else {
-        resultado.innerHTML = "<p style='color:red;'>Código inválido!</p>";
+        alert("Código inválido!");
       }
     }
   </script>
