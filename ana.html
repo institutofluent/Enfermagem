@@ -30,10 +30,20 @@
     .layout {
       background-color: #bb4b00;
       width: 80%;
-      margin: 60px auto; /* mais afastado do .topo2 */
+      margin: 60px auto; 
       height: 200px; 
-      border-radius: 20px; /* vértices arredondadas */
-      box-shadow: 0 6px 18px rgba(0,0,0,0.3); /* sombra */
+      border-radius: 20px; 
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3); 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .layout span {
+      font-family: 'Trebuchet MS', sans-serif;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
     }
 
     .whatsapp-btn {
@@ -75,7 +85,7 @@
   
   <div class="topo"><img src="unicorp.png" style="height:170px;"></div>
   <div class="topo2"></div>
-  <div class="layout"></div>
+  <div class="layout"><span>Documento emitido pela Instituição</span></div>
 
   <a href="https://wa.me/5585986616555" target="_blank" class="whatsapp-btn">
     <span>Fale Conosco</span>
