@@ -39,23 +39,33 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 30px; /* ainda maior */
-      background: rgba(0,0,0,0.5); /* preto transparente */
-      border-radius: 15px;
+      justify-content: space-between;
+      padding: 40px 50px; /* botão bem grande */
+      background: rgba(0,0,0,0.6); /* preto transparente */
+      border-radius: 25px;
       cursor: pointer;
-      z-index: 1000; /* garante que fique acima de tudo */
+      z-index: 1000;
+      width: 450px; /* largura maior */
+      height: 160px; /* altura maior */
+      text-decoration: none; /* remove sublinhado */
+    }
+
+    .whatsapp-btn span {
+      color: white;
+      font-size: 38px; /* texto bem grande */
+      font-weight: bold;
     }
 
     .whatsapp-btn img {
-      width: 70px;  /* maior */
-      height: 70px;
+      width: 120px;  /* logo enorme */
+      height: 120px;
+      margin-left: 25px;
     }
 
     .whatsapp-btn:hover {
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.8);
     }
   </style>
 </head>
@@ -71,6 +81,7 @@
 
   <!-- Botão do WhatsApp -->
   <a href="https://wa.me/5585986616555" target="_blank" class="whatsapp-btn">
+    <span>Fale Conosco</span>
     <img src="whatsapp.png" alt="WhatsApp">
   </a>
 </body>
