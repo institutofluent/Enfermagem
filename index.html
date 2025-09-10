@@ -1,67 +1,85 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Site da Empresa</title>
-<style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        min-height: 100%;
-        font-family: Arial, sans-serif;
-        scroll-behavior: smooth;
-        overflow-x: hidden; /* evita rolagem horizontal */
+  <meta charset="UTF-8">
+  <title>Verificação de Aluno</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-    /* Capa no topo */
-    .capa-container {
-        width: 100%;
-        overflow: hidden;
-        position: relative;
+    .caixa {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 300px;
     }
 
-    .capa {
-        width: 100%;        
-        height: auto;       
-        display: block;
-        object-fit: cover; 
+    input {
+      padding: 8px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 10px;
     }
 
-    /* Seções adicionais */
-    .secao {
-        width: 100%;
-        min-height: 100vh;
-        background-size: cover; /* cobre toda a área da seção */
-        background-repeat: no-repeat;
-        background-position: center;
+    button {
+      background-color: blue;   /* fundo azul */
+      color: white;             /* texto branco */
+      border: none;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
     }
 
-    .secao1 {
-        background-image: url('fundo-1.png'); /* escolha seu fundo */
+    button:hover {
+      background-color: darkblue;
     }
 
-    .secao2 {
-        background-image: url('fundo-2.jpg'); /* outro fundo */
+    #resultado {
+      margin-top: 15px;
+      font-size: 14px;
     }
-
-    .secao3 {
-        background-image: url('fundo-3.jpg'); /* outro fundo */
-    }
-</style>
+  </style>
 </head>
 <body>
+  <div class="caixa">
+    <h2>Verificação</h2>
+    <input type="text" id="codigo" placeholder="Digite o código">
+    <button onclick="verificar()">Verificar</button>
+    <div id="resultado"></div>
+  </div>
 
-<!-- Capa apenas no topo -->
-<div class="capa-container">
-    <img src="capa.jpg" alt="Capa da Empresa" class="capa">
-</div>
+  <script>
+    // "Banco de dados" em JSON (pode adicionar mais alunos aqui)
+    const alunos = {
+      "12345": {nome: "Ana Silva", turma: "3A", idade: 15},
+      "67890": {nome: "Carlos Souza", turma: "2B", idade: 16}
+    };
 
-<!-- Seções adicionais com fundos diferentes -->
-<div class="secao secao1"></div>
-<div class="secao secao2"></div>
-<div class="secao secao3"></div>
+    function verificar() {
+      const codigo = document.getElementById("codigo").value.trim();
+      const resultado = document.getElementById("resultado");
 
+      if (alunos[codigo]) {
+        let aluno = alunos[codigo];
+        resultado.innerHTML = `
+          <h3>Informações do Aluno</h3>
+          <p><b>Nome:</b> ${aluno.nome}</p>
+          <p><b>Turma:</b> ${aluno.turma}</p>
+          <p><b>Idade:</b> ${aluno.idade}</p>
+        `;
+      } else {
+        resultado.innerHTML = "<p style='color:red;'>Código inválido!</p>";
+      }
+    }
+  </script>
 </body>
 </html>
