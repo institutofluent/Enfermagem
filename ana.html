@@ -10,7 +10,7 @@
       padding: 0;
       overflow-x: hidden;
       background-color: #f2f2f2;
-      font-family: Arial, sans-serif; /* fonte padrão mantida */
+      font-family: Arial, sans-serif;
     }
 
     .topo {
@@ -93,13 +93,27 @@
       border-radius: 0;
     }
 
+    .imagem-final-container {
+      position: relative;
+      width: 100%;
+    }
+
     .imagem-final {
       display: block;
       width: 100%;
-      min-height: 100vh; /* garante que ocupe pelo menos a tela toda */
+      min-height: 100vh;
       object-fit: cover;
       margin-top: 60px;
       margin-bottom: 0;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 20px;          /* distância do topo da imagem-final */
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 40%;     /* tamanho da imagem sobreposta */
+      height: auto;
     }
 
     .whatsapp-btn {
@@ -159,7 +173,10 @@
 
     <div class="linha-final"></div>
 
-    <img src="imagem-final.png" alt="Imagem Final" class="imagem-final" id="imagemFinal">
+    <div class="imagem-final-container">
+      <img src="overlay.png" alt="Imagem Superior" class="overlay">
+      <img src="imagem-final.png" alt="Imagem Final" class="imagem-final" id="imagemFinal">
+    </div>
   </div>
 
   <a href="https://wa.me/5585985256372" target="_blank" class="whatsapp-btn">
