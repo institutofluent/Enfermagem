@@ -8,7 +8,7 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      overflow: hidden; /* remove rolagem vertical e horizontal */
+      overflow: hidden;
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       display: flex;
@@ -18,19 +18,24 @@
 
     .caixa {
       background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      padding: 60px;              /* mais espaço interno */
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
       text-align: center;
-      width: 90%;       /* ocupa quase toda a tela no celular */
-      max-width: 400px; /* mas não passa de 400px em telas grandes */
+      width: 90%;
+      max-width: 1000px;          /* 4x maior que antes */
+    }
+
+    h2 {
+      font-size: 42px;            /* título bem maior */
+      margin-bottom: 40px;
     }
 
     input {
-      padding: 12px;
-      font-size: 16px;
+      padding: 28px;              /* bem maior */
+      font-size: 28px;
       width: 100%;
-      margin-bottom: 12px;
+      margin-bottom: 25px;
       box-sizing: border-box;
     }
 
@@ -38,10 +43,11 @@
       background-color: blue;
       color: white;
       border: none;
-      padding: 14px;
+      padding: 30px;
       width: 100%;
-      font-size: 16px;
+      font-size: 30px;
       cursor: pointer;
+      border-radius: 10px;
     }
 
     button:hover {
@@ -57,7 +63,6 @@
   </div>
 
   <script>
-    // Apenas o código da Ana
     const alunos = {
       "TST200740112025": "ana.html"
     };
