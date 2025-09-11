@@ -9,7 +9,8 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background-color: #f2f2f2; /* ou a cor de fundo desejada */
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif; /* fonte padrão mantida */
     }
 
     .topo {
@@ -48,7 +49,7 @@
 
     .conteudo {
       width: 100%;
-      margin: 60px auto 0 auto; /* margin-bottom foi removido */
+      margin: 60px auto 0 auto;
       padding: 0;
     }
 
@@ -95,10 +96,10 @@
     .imagem-final {
       display: block;
       width: 100%;
-      height: auto;  /* será ajustado via JS */
+      min-height: 100vh; /* garante que ocupe pelo menos a tela toda */
       object-fit: cover;
       margin-top: 60px;
-      margin-bottom: 0; /* garantir que não tenha margem inferiror automático */
+      margin-bottom: 0;
     }
 
     .whatsapp-btn {
@@ -167,28 +168,7 @@
   </a>
 
   <script>
-    function ajustarImagem() {
-      const img = document.getElementById('imagemFinal');
-      if (!img) return;
-
-      // Remove espaços visuais como margin-bottom
-      img.style.marginBottom = '0';
-      img.style.display = 'block';
-
-      const rect = img.getBoundingClientRect();
-      const topDaImagem = rect.top;
-      const alturaDisponivel = window.innerHeight - topDaImagem;
-
-      if (alturaDisponivel > 0) {
-        img.style.height = alturaDisponivel + 'px';
-        img.style.objectFit = 'cover';
-      } else {
-        img.style.height = 'auto';
-      }
-    }
-
     window.addEventListener('load', () => {
-      // preencher dados se for usar fetch
       fetch('preencher.html').then(r => r.text()).then(texto => {
         const linhas = texto.trim().split('\n');
         const divDados = document.getElementById('dados');
@@ -199,21 +179,7 @@
           "CPF: <span>" + (linhas[3] || "") + "</span><br>" +
           "CURSO: <span>" + (linhas[4] || "") + "</span><br>" +
           "DOCUMENTO: <span>" + (linhas[5] || "") + "</span>";
-        // pequeno pause para garantir layout aplicado
-        setTimeout(ajustarImagem, 50);
-      }).catch(() => {
-        setTimeout(ajustarImagem, 50);
-      });
-
-      // quando imagem-final carrega
-      const img = document.getElementById('imagemFinal');
-      if (img) {
-        img.addEventListener('load', () => {
-          setTimeout(ajustarImagem, 50);
-        });
-      }
-
-      window.addEventListener('resize', ajustarImagem);
+      }).catch(() => {});
     });
   </script>
 
