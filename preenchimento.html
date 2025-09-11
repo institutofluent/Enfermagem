@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Preencher Dados</title>
+  <style>
+    html, body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .formulario {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+
+    .campo {
+      margin-bottom: 12px;
+    }
+
+    .campo label {
+      font-size: 22px;       /* igual ao .conteudo .dados */
+      font-weight: bold;     /* grossa */
+      font-style: normal;    /* sem itálico */
+      color: black;          /* preto */
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .campo input {
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .campo input:focus {
+      border-color: #0057db;
+    }
+
+    .botao {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background: #0057db;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .botao:hover {
+      background: #0040a8;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Preenchimento de Dados</h2>
+  <div class="formulario">
+    <div class="campo">
+      <label for="codigo">CÓDIGO:</label>
+      <input type="text" id="codigo" name="codigo" placeholder="Digite o código">
+    </div>
+
+    <div class="campo">
+      <label for="data">DATA DE EMISSÃO:</label>
+      <input type="text" id="data" name="data" placeholder="Digite a data de emissão">
+    </div>
+
+    <div class="campo">
+      <label for="aluno">ALUNO:</label>
+      <input type="text" id="aluno" name="aluno" placeholder="Digite o nome do aluno">
+    </div>
+
+    <div class="campo">
+      <label for="cpf">CPF:</label>
+      <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF">
+    </div>
+
+    <div class="campo">
+      <label for="curso">CURSO:</label>
+      <input type="text" id="curso" name="curso" placeholder="Digite o curso">
+    </div>
+
+    <div class="campo">
+      <label for="documento">DOCUMENTO:</label>
+      <input type="text" id="documento" name="documento" placeholder="Digite o documento">
+    </div>
+
+    <button class="botao">Enviar</button>
+  </div>
+
+</body>
+</html>
