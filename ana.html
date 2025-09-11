@@ -49,17 +49,17 @@
     .conteudo {
       width: 100%;
       margin: 60px auto;
-      overflow: hidden; /* garante que floats sejam contidos */
+      overflow: hidden;
     }
 
     .conteudo .imagem {
-      float: right;              /* imagem à direita */
+      float: right;
       width: 40%;
       min-width: 250px;
       border-radius: 10px;
       margin-right: 15px;
       margin-left: 30px;
-      margin-bottom: 15px;       /* espaço embaixo da imagem */
+      margin-bottom: 15px;
     }
 
     .conteudo .texto {
@@ -69,19 +69,19 @@
       font-style: italic;
       font-weight: 300;
       margin-left: 35px;
-      margin-right: 35px; /* pequena margem */
+      margin-right: 35px;
     }
 
     .conteudo .dados {
       font-size: 17px;
-      font-weight: bold;       /* grossa */
-      font-style: normal;      /* sem itálico */
-      color: #666;             /* cinza */
+      font-weight: bold;
+      font-style: normal;
+      color: #666;
       margin-left: 35px;
       margin-right: 35px;
       margin-top: 20px;
-      line-height: 1.2;        /* espaçamento reduzido */
-      white-space: pre-line;   /* respeita quebras de linha */
+      line-height: 1.2;
+      white-space: pre-line;
     }
 
     .whatsapp-btn {
@@ -137,7 +137,7 @@
       </p>
     </div>
 
-    <div class="dados">
+    <div class="dados" id="dados">
 CÓDIGO:
 DATA DE EMISSÃO:
 ALUNO:
@@ -154,5 +154,30 @@ DOCUMENTO:
 
   <div class="espaco-final"></div>
 
+  <script>
+    // busca o arquivo preencher.html
+    fetch("preencher.html")
+      .then(res => res.text())
+      .then(texto => {
+        // separa linhas do preencher.html
+        const linhas = texto.trim().split("\n");
+
+        // pega a div .dados
+        const div = document.getElementById("dados");
+
+        // cria os rótulos e junta com os dados
+        div.innerText = 
+          "CÓDIGO: " + (linhas[0] || "") + "\n" +
+          "DATA DE EMISSÃO: " + (linhas[1] || "") + "\n" +
+          "ALUNO: " + (linhas[2] || "") + "\n" +
+          "CPF: " + (linhas[3] || "") + "\n" +
+          "CURSO: " + (linhas[4] || "") + "\n" +
+          "DOCUMENTO: " + (linhas[5] || "");
+      })
+      .catch(err => {
+        console.error("Erro ao carregar preencher.html:", err);
+      });
+  </script>
+
 </body>
-</html>
+    </html>
