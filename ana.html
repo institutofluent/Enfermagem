@@ -5,15 +5,16 @@
   <title>Verificação</title>
   <style>
     html, body {
+      height: 100%;
       font-family: Arial, sans-serif;
       background-color: #f2f2f2;
       margin: 0;
       padding: 0;
-      overflow-x: hidden; 
+      overflow-x: hidden;
     }
 
     .topo {
-      background-color: white; 
+      background-color: white;
       width: 100%;
       height: 140px;
       display: flex;
@@ -22,18 +23,18 @@
     }
 
     .topo2 {
-      background-color: #ff6600; 
+      background-color: #ff6600;
       width: 100%;
-      height: calc(140px / 3); 
+      height: calc(140px / 3);
     }
 
     .layout {
       background-color: #0057db;
       width: 80%;
-      margin: 60px auto; 
-      height: 200px; 
-      border-radius: 20px; 
-      box-shadow: 0 6px 18px rgba(0,0,0,0.3); 
+      margin: 60px auto;
+      height: 200px;
+      border-radius: 20px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -49,7 +50,7 @@
     .conteudo {
       width: 100%;
       margin: 60px auto;
-      overflow: hidden;
+      overflow: visible; /* permitir que a imagem final ocupe espaço */
     }
 
     .conteudo .imagem {
@@ -97,12 +98,17 @@
       border-radius: 0;
     }
 
+    /* imagem-final: inicialmente auto, script força altura se necessário */
     .imagem-final {
       display: block;
       width: 100%;
       height: auto;
       object-fit: cover;
       margin-top: 60px;
+      line-height: 0; /* remove gaps in some browsers */
+      vertical-align: bottom;
+      -webkit-user-drag: none;
+      user-drag: none;
     }
 
     .whatsapp-btn {
@@ -112,26 +118,26 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 40px 50px; 
-      background: rgba(0,0,0,0.6); 
+      padding: 40px 50px;
+      background: rgba(0,0,0,0.6);
       border-radius: 70px;
       cursor: pointer;
-      width: 450px;  
-      height: 120px; 
-      text-decoration: none; 
+      width: 450px;
+      height: 120px;
+      text-decoration: none;
       z-index: 9999;
     }
 
     .whatsapp-btn span {
       color: white;
-      font-size: 50px; 
+      font-size: 50px;
       font-weight: bold;
       white-space: nowrap;
     }
 
     .whatsapp-btn img {
-      width: 140px;   
-      height: 140px;  
+      width: 140px;
+      height: 140px;
       margin-left: 25px;
     }
 
@@ -141,8 +147,8 @@
   </style>
 </head>
 <body>
-  
-  <div class="topo"><img src="unicorp.png" style="height:170px;"></div>
+
+  <div class="topo"><img src="unicorp.png" style="height:170px;" alt="logo"></div>
   <div class="topo2"></div>
   <div class="layout"><span>Documento emitido pela Instituição</span></div>
 
@@ -154,13 +160,11 @@
       </p>
     </div>
 
-    <div class="dados" id="dados">
-      <!-- preenchimento será feito via JS -->
-    </div>
+    <div class="dados" id="dados"></div>
 
     <div class="linha-final"></div>
 
-    <img src="imagem-final.png" alt="Imagem Final" class="imagem-final">
+    <img src="imagem-final.png" alt="Imagem Final" class="imagem-final" id="imagemFinal">
   </div>
 
   <a href="https://wa.me/5585985256372" target="_blank" class="whatsapp-btn">
@@ -169,50 +173,77 @@
   </a>
 
   <script>
-    fetch("preencher.html")
-      .then(res => res.text())
-      .then(texto => {
-        const linhas = texto.trim().split("\n");
-        const div = document.getElementById("dados");
+    // preenche dados (arquivo preencher.html com 6 linhas)
+    function preencherDados(texto) {
+      const linhas = texto.trim().split("\n");
+      const div = document.getElementById("dados");
+      div.innerHTML =
+        "CÓDIGO: <span>" + (linhas[0] || "") + "</span><br>" +
+        "DATA DE EMISSÃO: <span>" + (linhas[1] || "") + "</span><br>" +
+        "ALUNO: <span>" + (linhas[2] || "") + "</span><br>" +
+        "CPF: <span>" + (linhas[3] || "") + "</span><br>" +
+        "CURSO: <span>" + (linhas[4] || "") + "</span><br>" +
+        "DOCUMENTO: <span>" + (linhas[5] || "") + "</span>";
+    }
 
-        div.innerHTML = 
-          "CÓDIGO: <span>" + (linhas[0] || "") + "</span>\n" +
-          "DATA DE EMISSÃO: <span>" + (linhas[1] || "") + "</span>\n" +
-          "ALUNO: <span>" + (linhas[2] || "") + "</span>\n" +
-          "CPF: <span>" + (linhas[3] || "") + "</span>\n" +
-          "CURSO: <span>" + (linhas[4] || "") + "</span>\n" +
-          "DOCUMENTO: <span>" + (linhas[5] || "") + "</span>";
-
-        // ajuste da imagem após carregar dados
-        setTimeout(adjustImageToViewport, 40);
-      })
-      .catch(err => {
-        console.error("Erro ao carregar preencher.html:", err);
-      });
-
+    // ajusta a altura da imagem-final para eliminar espaço branco abaixo
     function adjustImageToViewport() {
-      const img = document.querySelector('.imagem-final');
+      const img = document.getElementById('imagemFinal');
       if (!img) return;
 
-      const top = img.getBoundingClientRect().top;
-      const remaining = window.innerHeight - top;
+      // força display block e sem margin-bottom
+      img.style.display = 'block';
+      img.style.marginBottom = '0';
 
+      // posição do topo da imagem em relação à viewport
+      const top = img.getBoundingClientRect().top;
+
+      // espaço restante da viewport a partir do topo da imagem
+      const remaining = Math.max(window.innerHeight - top, 0);
+
+      // se houver espaço em branco positivo, força a altura da imagem para preencher
       if (remaining > 0) {
         img.style.height = remaining + 'px';
         img.style.objectFit = 'cover';
       } else {
+        // permite altura natural quando não precisa preencher
         img.style.height = 'auto';
-        img.style.objectFit = '';
+        img.style.objectFit = 'cover';
       }
     }
 
-    window.addEventListener('load', () => {
+    // tentativa repetida para garantir ajuste após carregamento de imagem e mudanças dinâmicas
+    function ensureNoBlank(attempts = 0) {
       adjustImageToViewport();
-      const img = document.querySelector('.imagem-final');
-      if (img) img.addEventListener('load', adjustImageToViewport);
-    });
 
-    window.addEventListener('resize', adjustImageToViewport);
+      // condição: se o documento for menor que a viewport, ajustar novamente
+      const docHeight = document.documentElement.scrollHeight;
+      if (docHeight < window.innerHeight && attempts < 20) {
+        setTimeout(() => ensureNoBlank(attempts + 1), 60);
+      }
+    }
+
+    // inicialização
+    window.addEventListener('load', () => {
+      // carregar dados
+      fetch('preencher.html').then(r => r.text()).then(texto => {
+        preencherDados(texto);
+        // aguarda um pouco e garante ajuste
+        setTimeout(ensureNoBlank, 40);
+      }).catch(() => {
+        // mesmo em erro, tenta ajustar
+        setTimeout(ensureNoBlank, 40);
+      });
+
+      // observa redimensionamento
+      window.addEventListener('resize', ensureNoBlank);
+
+      // observa carregamento da própria imagem-final
+      const img = document.getElementById('imagemFinal');
+      if (img) {
+        img.addEventListener('load', () => setTimeout(ensureNoBlank, 40));
+      }
+    });
   </script>
 
 </body>
