@@ -28,8 +28,9 @@
     input {
       padding: 8px;
       font-size: 16px;
-      width: 100%;
+      width: 100%; /* ocupa exatamente a largura da caixa */
       margin-bottom: 10px;
+      box-sizing: border-box; /* garante que não passe do limite */
     }
 
     button {
@@ -50,7 +51,7 @@
 <body>
   <div class="caixa">
     <h2>Verificação</h2>
-    <input type="text" id="codigo" placeholder="Digite o código">
+    <input type="text" id="codigo" placeholder="Digite o código" maxlength="30">
     <button onclick="verificar()">Verificar</button>
   </div>
 
