@@ -53,6 +53,9 @@
     }
 
     .whatsapp-btn {
+      position: fixed;   /* FIXO NA TELA */
+      bottom: 20px;      /* DISTÂNCIA DO FUNDO */
+      right: 20px;       /* DISTÂNCIA DA DIREITA */
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -63,7 +66,7 @@
       width: 450px;  
       height: 120px; 
       text-decoration: none; 
-      margin: 80px auto;
+      z-index: 9999; /* fica por cima de tudo */
     }
 
     .whatsapp-btn span {
@@ -83,9 +86,8 @@
       background: rgba(0,0,0,0.8);
     }
 
-    /* espaço extra no fim da página */
     .espaco-final {
-      height: 600px; /* ajuste conforme quiser mais ou menos rolagem */
+      height: 600px; 
     }
   </style>
 </head>
@@ -97,6 +99,7 @@
 
   <img src="imagem.png" alt="Imagem Institucional" class="imagem">
 
+  <!-- BOTÃO FIXO -->
   <a href="https://wa.me/5585986616555" target="_blank" class="whatsapp-btn">
     <span>Fale Conosco</span>
     <img src="whatsapp.png" alt="WhatsApp">
