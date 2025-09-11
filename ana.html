@@ -53,9 +53,6 @@
     }
 
     .whatsapp-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -63,10 +60,10 @@
       background: rgba(0,0,0,0.6); 
       border-radius: 70px;
       cursor: pointer;
-      z-index: 1000;
       width: 450px;  
       height: 120px; 
       text-decoration: none; 
+      margin: 80px auto;
     }
 
     .whatsapp-btn span {
@@ -85,6 +82,11 @@
     .whatsapp-btn:hover {
       background: rgba(0,0,0,0.8);
     }
+
+    /* espaço extra no fim da página */
+    .espaco-final {
+      height: 600px; /* ajuste conforme quiser mais ou menos rolagem */
+    }
   </style>
 </head>
 <body>
@@ -99,5 +101,8 @@
     <span>Fale Conosco</span>
     <img src="whatsapp.png" alt="WhatsApp">
   </a>
+
+  <div class="espaco-final"></div>
+
 </body>
 </html>
