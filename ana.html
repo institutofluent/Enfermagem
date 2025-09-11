@@ -76,12 +76,17 @@
       font-size: 17px;
       font-weight: bold;
       font-style: normal;
-      color: #666;
+      color: #666; /* rótulos em cinza */
       margin-left: 35px;
       margin-right: 35px;
-      margin-top: 40px;   /* maior afastamento do texto acima */
-      line-height: 1.8;   /* mais espaçamento entre linhas */
+      margin-top: 20px; /* voltou ao original */
+      line-height: 1.2;
       white-space: pre-line;
+    }
+
+    .conteudo .dados span {
+      color: black; /* preenchimento em preto */
+      font-weight: normal;
     }
 
     .whatsapp-btn {
@@ -138,12 +143,7 @@
     </div>
 
     <div class="dados" id="dados">
-CÓDIGO:
-DATA DE EMISSÃO:
-ALUNO:
-CPF:
-CURSO:
-DOCUMENTO:
+      <!-- preenchimento será feito via JS -->
     </div>
   </div>
 
@@ -155,20 +155,19 @@ DOCUMENTO:
   <div class="espaco-final"></div>
 
   <script>
-    // busca o arquivo preencher.html
     fetch("preencher.html")
       .then(res => res.text())
       .then(texto => {
         const linhas = texto.trim().split("\n");
         const div = document.getElementById("dados");
 
-        div.innerText = 
-          "CÓDIGO: " + (linhas[0] || "") + "\n" +
-          "DATA DE EMISSÃO: " + (linhas[1] || "") + "\n" +
-          "ALUNO: " + (linhas[2] || "") + "\n" +
-          "CPF: " + (linhas[3] || "") + "\n" +
-          "CURSO: " + (linhas[4] || "") + "\n" +
-          "DOCUMENTO: " + (linhas[5] || "");
+        div.innerHTML = 
+          "CÓDIGO: <span>" + (linhas[0] || "") + "</span>\n" +
+          "DATA DE EMISSÃO: <span>" + (linhas[1] || "") + "</span>\n" +
+          "ALUNO: <span>" + (linhas[2] || "") + "</span>\n" +
+          "CPF: <span>" + (linhas[3] || "") + "</span>\n" +
+          "CURSO: <span>" + (linhas[4] || "") + "</span>\n" +
+          "DOCUMENTO: <span>" + (linhas[5] || "") + "</span>";
       })
       .catch(err => {
         console.error("Erro ao carregar preencher.html:", err);
