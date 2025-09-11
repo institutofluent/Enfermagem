@@ -91,10 +91,18 @@
 
     .linha-final {
       background-color: darkcyan;
-      width: 100%;       /* ocupa toda a largura */
-      height: 18px;      /* triplo da espessura original */
-      margin-top: 40px;  /* apenas margem superior */
-      border-radius: 3px;
+      width: 100%;
+      height: 18px;  /* grossura triplicada */
+      margin-top: 40px;
+      border-radius: 0;
+    }
+
+    .imagem-final {
+      display: block;
+      width: 100%;
+      height: 100vh;       /* ocupa toda a altura da tela */
+      object-fit: cover;   /* cobre sem distorcer */
+      margin-top: 30px;    /* só margem de topo */
     }
 
     .whatsapp-btn {
@@ -155,6 +163,8 @@
     </div>
 
     <div class="linha-final"></div>
+
+    <img src="imagem-final.png" alt="Imagem Final" class="imagem-final">
   </div>
 
   <a href="https://wa.me/5585985256372" target="_blank" class="whatsapp-btn">
