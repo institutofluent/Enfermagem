@@ -55,17 +55,15 @@
   </div>
 
   <script>
-    // Códigos que apontam para páginas específicas
+    // Apenas o código da Ana
     const alunos = {
-      "12345": "ana.html",
-      "67890": "carlos.html"
+      "TST200740112025": "ana.html"
     };
 
     function verificar() {
       const codigo = document.getElementById("codigo").value.trim();
 
       if (alunos[codigo]) {
-        // Redireciona o navegador para a página do aluno
         window.location.href = alunos[codigo];
       } else {
         alert("Código inválido!");
