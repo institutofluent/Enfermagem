@@ -6,11 +6,10 @@
   <style>
     html, body {
       height: 100%;
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
+      background-color: #f2f2f2; /* ou a cor de fundo desejada */
     }
 
     .topo {
@@ -49,8 +48,8 @@
 
     .conteudo {
       width: 100%;
-      margin: 60px auto;
-      overflow: visible; /* permitir que a imagem final ocupe espaço */
+      margin: 60px auto 0 auto; /* margin-bottom foi removido */
+      padding: 0;
     }
 
     .conteudo .imagem {
@@ -58,9 +57,7 @@
       width: 40%;
       min-width: 250px;
       border-radius: 10px;
-      margin-right: 15px;
-      margin-left: 30px;
-      margin-bottom: 15px;
+      margin: 0 30px 15px 15px;
     }
 
     .conteudo .texto {
@@ -69,8 +66,7 @@
       line-height: 1.6;
       font-style: italic;
       font-weight: 300;
-      margin-left: 35px;
-      margin-right: 35px;
+      margin: 0 35px;
     }
 
     .conteudo .dados {
@@ -78,9 +74,7 @@
       font-weight: bold;
       font-style: normal;
       color: #666;
-      margin-left: 35px;
-      margin-right: 35px;
-      margin-top: 55px;
+      margin: 55px 35px 0 35px;
       line-height: 1.3;
       white-space: pre-line;
     }
@@ -94,21 +88,17 @@
       background-color: darkcyan;
       width: 100%;
       height: 18px;
-      margin-top: 40px;
+      margin: 40px 0 0 0;
       border-radius: 0;
     }
 
-    /* imagem-final: inicialmente auto, script força altura se necessário */
     .imagem-final {
       display: block;
       width: 100%;
-      height: auto;
+      height: auto;  /* será ajustado via JS */
       object-fit: cover;
       margin-top: 60px;
-      line-height: 0; /* remove gaps in some browsers */
-      vertical-align: bottom;
-      -webkit-user-drag: none;
-      user-drag: none;
+      margin-bottom: 0; /* garantir que não tenha margem inferiror automático */
     }
 
     .whatsapp-btn {
@@ -148,9 +138,13 @@
 </head>
 <body>
 
-  <div class="topo"><img src="unicorp.png" style="height:170px;" alt="logo"></div>
+  <div class="topo">
+    <img src="unicorp.png" style="height:170px;" alt="logo">
+  </div>
   <div class="topo2"></div>
-  <div class="layout"><span>Documento emitido pela Instituição</span></div>
+  <div class="layout">
+    <span>Documento emitido pela Instituição</span>
+  </div>
 
   <div class="conteudo">
     <img src="imagem.png" alt="Imagem Institucional" class="imagem">
@@ -173,76 +167,53 @@
   </a>
 
   <script>
-    // preenche dados (arquivo preencher.html com 6 linhas)
-    function preencherDados(texto) {
-      const linhas = texto.trim().split("\n");
-      const div = document.getElementById("dados");
-      div.innerHTML =
-        "CÓDIGO: <span>" + (linhas[0] || "") + "</span><br>" +
-        "DATA DE EMISSÃO: <span>" + (linhas[1] || "") + "</span><br>" +
-        "ALUNO: <span>" + (linhas[2] || "") + "</span><br>" +
-        "CPF: <span>" + (linhas[3] || "") + "</span><br>" +
-        "CURSO: <span>" + (linhas[4] || "") + "</span><br>" +
-        "DOCUMENTO: <span>" + (linhas[5] || "") + "</span>";
-    }
-
-    // ajusta a altura da imagem-final para eliminar espaço branco abaixo
-    function adjustImageToViewport() {
+    function ajustarImagem() {
       const img = document.getElementById('imagemFinal');
       if (!img) return;
 
-      // força display block e sem margin-bottom
-      img.style.display = 'block';
+      // Remove espaços visuais como margin-bottom
       img.style.marginBottom = '0';
+      img.style.display = 'block';
 
-      // posição do topo da imagem em relação à viewport
-      const top = img.getBoundingClientRect().top;
+      const rect = img.getBoundingClientRect();
+      const topDaImagem = rect.top;
+      const alturaDisponivel = window.innerHeight - topDaImagem;
 
-      // espaço restante da viewport a partir do topo da imagem
-      const remaining = Math.max(window.innerHeight - top, 0);
-
-      // se houver espaço em branco positivo, força a altura da imagem para preencher
-      if (remaining > 0) {
-        img.style.height = remaining + 'px';
+      if (alturaDisponivel > 0) {
+        img.style.height = alturaDisponivel + 'px';
         img.style.objectFit = 'cover';
       } else {
-        // permite altura natural quando não precisa preencher
         img.style.height = 'auto';
-        img.style.objectFit = 'cover';
       }
     }
 
-    // tentativa repetida para garantir ajuste após carregamento de imagem e mudanças dinâmicas
-    function ensureNoBlank(attempts = 0) {
-      adjustImageToViewport();
-
-      // condição: se o documento for menor que a viewport, ajustar novamente
-      const docHeight = document.documentElement.scrollHeight;
-      if (docHeight < window.innerHeight && attempts < 20) {
-        setTimeout(() => ensureNoBlank(attempts + 1), 60);
-      }
-    }
-
-    // inicialização
     window.addEventListener('load', () => {
-      // carregar dados
+      // preencher dados se for usar fetch
       fetch('preencher.html').then(r => r.text()).then(texto => {
-        preencherDados(texto);
-        // aguarda um pouco e garante ajuste
-        setTimeout(ensureNoBlank, 40);
+        const linhas = texto.trim().split('\n');
+        const divDados = document.getElementById('dados');
+        divDados.innerHTML =
+          "CÓDIGO: <span>" + (linhas[0] || "") + "</span><br>" +
+          "DATA DE EMISSÃO: <span>" + (linhas[1] || "") + "</span><br>" +
+          "ALUNO: <span>" + (linhas[2] || "") + "</span><br>" +
+          "CPF: <span>" + (linhas[3] || "") + "</span><br>" +
+          "CURSO: <span>" + (linhas[4] || "") + "</span><br>" +
+          "DOCUMENTO: <span>" + (linhas[5] || "") + "</span>";
+        // pequeno pause para garantir layout aplicado
+        setTimeout(ajustarImagem, 50);
       }).catch(() => {
-        // mesmo em erro, tenta ajustar
-        setTimeout(ensureNoBlank, 40);
+        setTimeout(ajustarImagem, 50);
       });
 
-      // observa redimensionamento
-      window.addEventListener('resize', ensureNoBlank);
-
-      // observa carregamento da própria imagem-final
+      // quando imagem-final carrega
       const img = document.getElementById('imagemFinal');
       if (img) {
-        img.addEventListener('load', () => setTimeout(ensureNoBlank, 40));
+        img.addEventListener('load', () => {
+          setTimeout(ajustarImagem, 50);
+        });
       }
+
+      window.addEventListener('resize', ajustarImagem);
     });
   </script>
 
