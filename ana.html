@@ -49,17 +49,17 @@
     .conteudo {
       width: 100%;
       margin: 60px auto;
-      overflow: hidden;
+      overflow: hidden; /* garante que floats sejam contidos */
     }
 
     .conteudo .imagem {
-      float: right;
+      float: right;              /* imagem à direita */
       width: 40%;
       min-width: 250px;
       border-radius: 10px;
       margin-right: 15px;
       margin-left: 30px;
-      margin-bottom: 15px;
+      margin-bottom: 15px;       /* espaço embaixo da imagem */
     }
 
     .conteudo .texto {
@@ -69,19 +69,19 @@
       font-style: italic;
       font-weight: 300;
       margin-left: 35px;
-      margin-right: 35px;
+      margin-right: 35px; /* pequena margem */
     }
 
     .conteudo .dados {
       font-size: 17px;
-      font-weight: bold;
-      font-style: normal;
-      color: #666;
+      font-weight: bold;       /* grossa */
+      font-style: normal;      /* sem itálico */
+      color: #666;             /* cinza para rótulos */
       margin-left: 35px;
       margin-right: 35px;
       margin-top: 20px;
-      line-height: 1.2;
-      white-space: pre-line;
+      line-height: 1.2;        /* espaçamento reduzido */
+      white-space: pre-line;   /* respeita quebras de linha */
     }
 
     .whatsapp-btn {
@@ -165,14 +165,14 @@ DOCUMENTO:
         // pega a div .dados
         const div = document.getElementById("dados");
 
-        // cria os rótulos e junta com os dados
-        div.innerText = 
-          "CÓDIGO: " + (linhas[0] || "") + "\n" +
-          "DATA DE EMISSÃO: " + (linhas[1] || "") + "\n" +
-          "ALUNO: " + (linhas[2] || "") + "\n" +
-          "CPF: " + (linhas[3] || "") + "\n" +
-          "CURSO: " + (linhas[4] || "") + "\n" +
-          "DOCUMENTO: " + (linhas[5] || "");
+        // cria os rótulos cinza + valores em preto
+        div.innerHTML =
+          "CÓDIGO: <span style='color:#000'>" + (linhas[0] || "") + "</span><br>" +
+          "DATA DE EMISSÃO: <span style='color:#000'>" + (linhas[1] || "") + "</span><br>" +
+          "ALUNO: <span style='color:#000'>" + (linhas[2] || "") + "</span><br>" +
+          "CPF: <span style='color:#000'>" + (linhas[3] || "") + "</span><br>" +
+          "CURSO: <span style='color:#000'>" + (linhas[4] || "") + "</span><br>" +
+          "DOCUMENTO: <span style='color:#000'>" + (linhas[5] || "") + "</span>";
       })
       .catch(err => {
         console.error("Erro ao carregar preencher.html:", err);
@@ -180,4 +180,4 @@ DOCUMENTO:
   </script>
 
 </body>
-    </html>
+</html>
