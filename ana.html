@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Verificação</title>
   <style>
     html, body {
@@ -9,7 +9,7 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background-color: #f2f2f2; /* ou a cor de fundo desejada */
+      background-color: #f2f2f2;
     }
 
     .topo {
@@ -48,7 +48,7 @@
 
     .conteudo {
       width: 100%;
-      margin: 60px auto 0 auto; /* margin-bottom foi removido */
+      margin: 60px auto 0 auto;
       padding: 0;
     }
 
@@ -92,13 +92,17 @@
       border-radius: 0;
     }
 
-    .imagem-final {
-      display: block;
+    /* wrapper que contém a imagem final como background */
+    .imagem-final-wrap {
       width: 100%;
-      height: auto;  /* será ajustado via JS */
-      object-fit: cover;
-      margin-top: 60px;
-      margin-bottom: 0; /* garantir que não tenha margem inferiror automático */
+      background-image: url('imagem-final.png'); /* coloque o arquivo na mesma pasta */
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      margin-top: 60px;   /* pequena margem entre a linha e a imagem */
+      min-height: 200px;  /* fallback pequeno; será ajustado por JS */
+      display: block;
+      line-height: 0;     /* evita gaps em alguns navegadores */
     }
 
     .whatsapp-btn {
@@ -138,13 +142,9 @@
 </head>
 <body>
 
-  <div class="topo">
-    <img src="unicorp.png" style="height:170px;" alt="logo">
-  </div>
+  <div class="topo"><img src="unicorp.png" style="height:170px;" alt="logo"></div>
   <div class="topo2"></div>
-  <div class="layout">
-    <span>Documento emitido pela Instituição</span>
-  </div>
+  <div class="layout"><span>Documento emitido pela Instituição</span></div>
 
   <div class="conteudo">
     <img src="imagem.png" alt="Imagem Institucional" class="imagem">
@@ -158,7 +158,8 @@
 
     <div class="linha-final"></div>
 
-    <img src="imagem-final.png" alt="Imagem Final" class="imagem-final" id="imagemFinal">
+    <!-- wrapper com background; será esticado para cobrir toda a rolagem até embaixo -->
+    <div id="imagemFinalWrap" class="imagem-final-wrap" aria-hidden="true"></div>
   </div>
 
   <a href="https://wa.me/5585985256372" target="_blank" class="whatsapp-btn">
@@ -167,53 +168,90 @@
   </a>
 
   <script>
-    function ajustarImagem() {
-      const img = document.getElementById('imagemFinal');
-      if (!img) return;
+    // preenche os rótulos a partir de preencher.html (6 linhas)
+    function preencherDadosTexto(texto) {
+      const linhas = texto.trim().split('\n');
+      const div = document.getElementById('dados');
+      div.innerHTML =
+        "CÓDIGO: <span>" + (linhas[0] || "") + "</span><br>" +
+        "DATA DE EMISSÃO: <span>" + (linhas[1] || "") + "</span><br>" +
+        "ALUNO: <span>" + (linhas[2] || "") + "</span><br>" +
+        "CPF: <span>" + (linhas[3] || "") + "</span><br>" +
+        "CURSO: <span>" + (linhas[4] || "") + "</span><br>" +
+        "DOCUMENTO: <span>" + (linhas[5] || "") + "</span>";
+    }
 
-      // Remove espaços visuais como margin-bottom
-      img.style.marginBottom = '0';
-      img.style.display = 'block';
+    // ajusta o wrapper da imagem final para que ele SEJA alto o suficiente
+    // para eliminar qualquer espaço branco abaixo (cobre a rolagem até o fim)
+    function ajustarWrapFinal() {
+      const wrap = document.getElementById('imagemFinalWrap');
+      if (!wrap) return;
 
-      const rect = img.getBoundingClientRect();
-      const topDaImagem = rect.top;
-      const alturaDisponivel = window.innerHeight - topDaImagem;
+      // calcula topo do wrapper em relação à viewport
+      const rect = wrap.getBoundingClientRect();
+      let top = rect.top;
 
-      if (alturaDisponivel > 0) {
-        img.style.height = alturaDisponivel + 'px';
-        img.style.objectFit = 'cover';
-      } else {
-        img.style.height = 'auto';
+      // se o elemento ainda não foi inserido corretamente no layout, tenta de novo
+      // (proteção contra execução prematura)
+      if (Number.isNaN(top)) return;
+
+      // altura necessária para cobrir a viewport a partir do topo do wrapper
+      const requiredToViewportBottom = Math.max(window.innerHeight - top, 0);
+
+      // também garantia de cobrir se o wrapper estiver acima da viewport
+      // (ex: top < 0) => requiredToViewportBottom > innerHeight, ok.
+      // definimos minHeight para essa altura
+      wrap.style.minHeight = requiredToViewportBottom + 'px';
+
+      // Força também que o documento contenha o wrapper na sua altura total:
+      // quando wrapper cresce ele naturalmente aumenta a altura do documento.
+      // Garante recálculo no próximo frame para evitar glitches.
+      requestAnimationFrame(() => {
+        // se ainda houver um pequeno gap por arredondamento, adiciona 1px extra
+        const docH = document.documentElement.scrollHeight;
+        if (docH < window.innerHeight) {
+          wrap.style.minHeight = (requiredToViewportBottom + 1) + 'px';
+        }
+      });
+    }
+
+    // tenta ajustar repetidamente por alguns ciclos (ajuda quando recursos/ imagens demoram)
+    function ensureAdjusted(retries = 0) {
+      ajustarWrapFinal();
+      if (retries < 12) {
+        setTimeout(() => ensureAdjusted(retries + 1), 80);
       }
     }
 
     window.addEventListener('load', () => {
-      // preencher dados se for usar fetch
-      fetch('preencher.html').then(r => r.text()).then(texto => {
-        const linhas = texto.trim().split('\n');
-        const divDados = document.getElementById('dados');
-        divDados.innerHTML =
-          "CÓDIGO: <span>" + (linhas[0] || "") + "</span><br>" +
-          "DATA DE EMISSÃO: <span>" + (linhas[1] || "") + "</span><br>" +
-          "ALUNO: <span>" + (linhas[2] || "") + "</span><br>" +
-          "CPF: <span>" + (linhas[3] || "") + "</span><br>" +
-          "CURSO: <span>" + (linhas[4] || "") + "</span><br>" +
-          "DOCUMENTO: <span>" + (linhas[5] || "") + "</span>";
-        // pequeno pause para garantir layout aplicado
-        setTimeout(ajustarImagem, 50);
-      }).catch(() => {
-        setTimeout(ajustarImagem, 50);
-      });
-
-      // quando imagem-final carrega
-      const img = document.getElementById('imagemFinal');
-      if (img) {
-        img.addEventListener('load', () => {
-          setTimeout(ajustarImagem, 50);
+      // preenche dados e então ajusta
+      fetch('preencher.html')
+        .then(r => r.text())
+        .then(t => {
+          preencherDadosTexto(t);
+          // após inserir dados, garantir ajuste
+          setTimeout(() => ensureAdjusted(0), 40);
+        })
+        .catch(() => {
+          // mesmo se falhar, tenta ajustar
+          setTimeout(() => ensureAdjusted(0), 40);
         });
+
+      // ajustar quando redimensionar janela
+      window.addEventListener('resize', ajustarWrapFinal);
+
+      // também observar mudanças no DOM que possam alterar alturas acima:
+      // MutationObserver que chama ajustarWrapFinal quando algo muda na .conteudo
+      const conteudo = document.querySelector('.conteudo');
+      if (conteudo) {
+        const mo = new MutationObserver(() => {
+          setTimeout(ajustarWrapFinal, 40);
+        });
+        mo.observe(conteudo, { childList: true, subtree: true, characterData: true });
       }
 
-      window.addEventListener('resize', ajustarImagem);
+      // tentativa inicial
+      setTimeout(ajustarWrapFinal, 80);
     });
   </script>
 
