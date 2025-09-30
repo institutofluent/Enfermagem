@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
         data: 'data',
         aluno: 'aluno',
         cpf: 'cpf',
-        rg: 'rg',
         nacionalidade: 'nacionalidade',
         natural: 'natural',
         nascimento: 'nascimento',
