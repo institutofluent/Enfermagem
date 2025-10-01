@@ -33,7 +33,6 @@
       }  
     }  
 
-    /* faixa topo */  
     .faixa-topo {  
       width: 100%;  
       height: 170px;  
@@ -54,7 +53,6 @@
       }  
     }  
 
-    /* texto abaixo da faixa */  
     .texto-abaixo-topo {  
       margin-top: 20px;  
       text-align: center;  
@@ -70,7 +68,6 @@
       }  
     }  
 
-    /* bloco dos rótulos */  
     .rotulos {  
       margin-top: 30px;  
       margin-left: 20px;  
@@ -88,7 +85,6 @@
       }  
     }  
 
-    /* aviso acima do rodapé */  
     .aviso {  
       text-align: center;  
       margin: 20px;   
@@ -103,7 +99,6 @@
       }  
     }  
 
-    /* faixa inferior */  
     .faixa-baixo {  
       width: 100%;  
       height: 340px;  
@@ -119,7 +114,6 @@
       }  
     }  
 
-    /* nova faixa colada em cima da inferior */  
     .faixa-baixo-top {  
       width: 100%;  
       height: 340px;  
@@ -136,7 +130,6 @@
       }  
     }  
 
-    /* botão WhatsApp */  
     .whatsapp-btn {  
       position: fixed;  
       bottom: 20px;  
@@ -186,17 +179,13 @@
   </style>  
 </head>  
 <body>  
-  <!-- faixa topo com logo centralizado -->  
   <div class="faixa-topo">  
     <img src="fluentzinho.png" alt="Logo FTEC">  
   </div>  
 
-  <!-- texto abaixo da faixa -->  
   <div class="texto-abaixo-topo">Código MEC Nº 21811</div>  
 
-  <!-- rótulos alinhados à esquerda -->  
   <div class="rotulos">  
-    CÓDIGO: <span id="cod"></span><br>  
     DATA DA EMISSÃO: <span id="data"></span><br>  
     ALUNO: <span id="aluno"></span><br>  
     CPF: <span id="cpf"></span><br>  
@@ -207,24 +196,18 @@
     CURSO: <span id="curso"></span>  
   </div>  
 
-  <!-- aviso acima da faixa inferior -->  
   <div class="aviso">  
     Caso acredite que as informações emitidas não coincidem, entre em contato conosco pelo Whatsapp  
   </div>  
 
-  <!-- nova faixa colada em cima -->
   <div class="faixa-baixo-top"></div>
-
-  <!-- faixa inferior -->  
   <div class="faixa-baixo"></div>  
 
-  <!-- botão WhatsApp -->  
   <a href="https://wa.me/5585985256372" target="_blank" class="whatsapp-btn">  
     <span>Fale Conosco:</span>  
     <img src="whatsapp.png" alt="WhatsApp">  
   </a>  
 
-  <!-- script que vai preencher os dados -->  
   <script src="preenche.js"></script>  
 </body>  
 </html>
