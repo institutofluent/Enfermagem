@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       const map = {
-        cod: 'cod',
         data: 'data',
         aluno: 'aluno',
         cpf: 'cpf',
@@ -48,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const val = dados[ map[id] ];
         if (el) {
           el.textContent = val !== undefined && val !== null ? val : '';
-          // força cor cinza + negrito (usa !important inline)
           el.style.setProperty('color', '#666', 'important');
           el.style.setProperty('font-weight', '700', 'important');
         }
